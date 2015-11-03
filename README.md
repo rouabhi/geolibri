@@ -20,6 +20,7 @@ console.log(" 1 radian in degrees = ",geo.rad2deg(1));
  Creates a **point** object defined by _latitude_ and _longitude_.
 
  Many syntaxes are possible:
+ 
     ```javascript
     var P = geo.point(latitude, longitude);
     var P1 = geo.point({"latitude":lat , "longitude":lng});
@@ -32,13 +33,13 @@ For convenience, it is also possible to initialize a point by another:
 
 ## point() methods ##
 
-    - ```.lat()```, ```.lng()```, ```.latlng()```
+- ```.lat()```, ```.lng()```, ```.latlng()```
 To get *latitude*, *longitude* or a *{lat,lng}* object 
 
-    - ```._lat()```, ```._lng()```
+- ```._lat()```, ```._lng()```
 To get *latitude* or *longitude* in radians. 
 
-    - ```.N( dist )```, ```.E( dist )```, ```.S( dist )```, ```.W( dist )```
+- ```.N( dist )```, ```.E( dist )```, ```.S( dist )```, ```.W( dist )```
 Returns a new point that is from a distance *dist* to the North, East, South or West.
 
 West function can also be called by ```.O( dist )```.
@@ -56,7 +57,7 @@ Another way to call these functions is:
     var E = P.move('O' , 1500 ); // D & E are points situated 1.5 km west of P
 ```
 
-    - ```.distance( point )```
+- ```.distance( point )```
 Gives the distance from a point to another one.
 ```javascript
     var P = geo.point(lat1, lng1 );
