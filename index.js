@@ -41,7 +41,7 @@ console.info( "Bejaia-Bejaia : " , (latlng.dist( {lat:36.7525000, lng:3.0419700}
 		if (typeof precision == "number") dist = parseFloat( dist.toFixed(precision));
 		return dist;
 	};
-	exports.dist = distance;
+	exports.distance = distance;
 
 	/** constructor of point(). Possible syntaxes are:
 		 - point(lat,lng)
@@ -54,14 +54,14 @@ console.info( "Bejaia-Bejaia : " , (latlng.dist( {lat:36.7525000, lng:3.0419700}
 		
 		if (typeof lat === "number" ) {Lat = lat; Lng = lng;}
 		else if (lat && (lat.isType === "POINT")) return lat;
-		else if (lat) {Lat=lat.lat || lat.Lat; Lng=lat.lng || lat.Lng; }  // LatLngLiteral
-		else return null; // unknown
+		else if (lat) {Lat=lat.lat || lat.latitude || 0; Lng=lat.lng || lat.longitude || 0; }
+		else return null; // unknown: error
 
 		var exports = {};
 
 		exports.lat = function(){return Lat;};
 		exports.lng = function(){return Lng;};
-		exports.latLng = function(){return {lat:Lat,lng:Lng};};
+		exports.latlng = function(){return {lat:Lat,lng:Lng};};
 		exports._lat = function(){return deg2rad(Lat);};
 		exports._lng = function(){return deg2rad(Lng);};
 		exports.toString = function(){return JSON.stringify({lat:Lat, lng:Lng});};
@@ -76,7 +76,7 @@ console.info( "Bejaia-Bejaia : " , (latlng.dist( {lat:36.7525000, lng:3.0419700}
 		exports.E = East;
  		exports.O = West;
  		exports.W = West;
- 		exports.dist = function(P, unit, precision){return distance( exports, P, unit, precision);};
+ 		exports.distance = function(P, unit, precision){return distance( exports, P, unit, precision);};
  		exports.move = function( dir, dist ){
  			var result = null;
  			switch(dir){

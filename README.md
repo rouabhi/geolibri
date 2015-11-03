@@ -1,65 +1,74 @@
-# varsession #
+# geolibri #
 
-**varsession** offers a very simple way to manage *Session Variables* with node.js when using ```express.js```
+**geolibri** is a simple Node.js package that provides some geo features.
 
-## How does it work? ##
-First, you have to activate session management using  _express-session_ middleware. 
+## Using package ##
+
 ```javascript
-var express = require('express');
-var app = express();
-var session = require('express-session');
-
-app.use( session({secret:'mySecretKey', cookie: { maxAge: 600000 }, resave:false, saveUninitialized:true});
+var geo = require('geolibri');
 ```
 
-With this lines, sessions are now managed. This means that you have a separate environment for each connection opened in the server. In this environment, you can now create session variables to store data throughout requests to the server.
-
-## How? ##
-**varsession** offers simple functions to define session variables:
-
+## Available functions ##
+ - ```deg2rad``` & ```rad2deg```
+ Unit conversion: degrees to radians and vice-versa.
 ```javascript
-var varSession = require('varsession');
-
-function setVariables(req,res){
-    var varsession = varSession(req);
-
-    // we define here session variables named "name" and "surname"
-    varsession("name","ROUABHI");
-    varsession("surname","Samir");
-    res.status(200).send("Variables defined.").end();
-}
-
-function getVariables(req,res){
-    var varsession = varSession(req);
-
-    // we use now session variables
-    res.status(200).send("My name is :"+ varsession("surname") + " " + varsession("name")).end();
-}
-
-app.get("/set" , setVariables);
-app.get("/get" , getVariables);
+console.log(" 180° in radians = ",geo.deg2rad(180));
+console.log(" 1 radian in degrees = ",geo.rad2deg(1));
 ```
 
-Beware : the session variables are stored in cookies so they are registred only when there is a HTTP response.
+ - ```point(...)```
+ Creates a **point** object defined by _latitude_ and _longitude_.
 
-## Different possibilities ##
- - ```varsession()``` returns all the variables of the session
- - ```varsession('variable')``` gets the value of a variable
- - ```varsession('variable',{value})``` sets a value in a variable
- - ```varsession('variable',null)``` deletes a variable
- - ```varsession('variable','field')``` gets a value in a field of a variable. is similar to ```varsession('variable')['field']```
- - ```varsession('variable','field',{value})``` sets a value in a field of a variable.
+ Many syntaxes are possible:
+    ```javascript
+    var P = geo.point(latitude, longitude);
+    var P1 = geo.point({"latitude":lat , "longitude":lng});
+    var P2 = geo.point({"lat":lat , "lng":lng});
+    ```
 
-Old functions of v0.1 ```.set```, ```.get```, ```.clear``` and ```.setAttr``` are now deprecated.
+For convenience, it is also possible to initialize a point by another:
+    var P1 = geo.point(latitude, longitude);
+    var P2 = geo.point(P1);
 
-## Other fonctions ##
-2 other fonctions currently available:
+## point() methods ##
+
+    - ```.lat()```, ```.lng()```, ```.latlng()```
+To get *latitude*, *longitude* or a *{lat,lng}* object 
+
+    - ```._lat()```, ```._lng()```
+To get *latitude* or *longitude* in radians. 
+
+    - ```.N( dist )```, ```.E( dist )```, ```.S( dist )```, ```.W( dist )```
+Returns a new point that is from a distance *dist* to the North, East, South or West.
+
+West function can also be called by ```.O( dist )```.
+
+*dist* is expressed in meters.
+
+Another way to call these functions is:
+
 ```javascript
-var varsession = varSession(req);
+    var P = geo.point(latitude, longitude);
+    var A = P.move('N' , 1000 ); // A is a point situated 1 km north of P
+    var B = P.move('E' , 1000 ); // B is a point situated 1 km east of P
+    var C = P.move('S' , 1000 ); // C is a point situated 1 km south of P
+    var D = P.move('W' , 1500 ); 
+    var E = P.move('O' , 1500 ); // D & E are points situated 1.5 km west of P
+```
 
-// destroys the session and all session variables defined
-varsession.abandon();
+    - ```.distance( point )```
+Gives the distance from a point to another one.
+```javascript
+    var P = geo.point(lat1, lng1 );
+    var Q = geo.point(lat2, lng2 );
 
-// returns the ip address of the device that made the request.
-console.log( varsession.ip() );
+    console.log("Distance from P to Q : ",P.distance(Q, unit, precision));
+```
+
+**Optional parameters :** *unit* is one of 'm' (meters), 'km' (kilometers), 'mile' (miles), 'NM' (nautic miles). *Precision* is the number of decimals.
+
+This function can also be called this way:
+
+```javascript
+    console.log("Distance from P to Q : ",geo.distance(P, Q, "km", 3), " km");
 ```
