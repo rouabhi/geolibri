@@ -49,12 +49,14 @@ console.info( "Bejaia-Bejaia : " , (latlng.dist( {lat:36.7525000, lng:3.0419700}
 		 - point(LatLnghLiteral)
 		 - point( Point )
 	 **/
-	function point(lat,lng){
+	function point(lat,lng, factor){
 		var Lat, Lng;
+
+		factor = factor || 1;
 		
-		if (typeof lat === "number" ) {Lat = lat; Lng = lng;}
+		if (typeof lat === "number" ) {Lat = lat*factor; Lng = lng*factor;}
 		else if (lat && (lat.isType === "POINT")) return lat;
-		else if (lat) {Lat=lat.lat || lat.latitude || 0; Lng=lat.lng || lat.longitude || 0; }
+		else if (lat) {Lat=(lat.lat || lat.latitude || 0)*factor; Lng=(lat.lng || lat.longitude || 0)*factor; }
 		else return null; // unknown: error
 
 		var exports = {};
@@ -88,8 +90,13 @@ console.info( "Bejaia-Bejaia : " , (latlng.dist( {lat:36.7525000, lng:3.0419700}
 	 		}
 	 		return result;
  		};
+ 		exports.bounds = function( dist ){
+ 			var SW = exports.S(dist).W(dist);
+ 			var NE = exports.N(dist).E(dist);
+ 			return {minlat:SW.lat(), maxlat:NE.lat(), minlng:SW.lng(), maxlng:NE.lng()};
+ 		}
  		exports.isType = "POINT";
 		return exports;
 	}
 	exports.point = point;
-	exports._point = function(lat,lng){return point(rad2deg(lat) , rad2deg(lng));};
+	exports._point = function(lat,lng){return point(lat , lng, rad2deg(1));};
