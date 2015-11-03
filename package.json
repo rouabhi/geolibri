@@ -1,0 +1,30 @@
+{
+  "name": "varsession",
+  "version": "0.2.1",
+  "description": "A simple way to manage Session Variables with node.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://rouabhi@bitbucket.org/cloudestin/varsession.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "Session",
+    "Variables"
+  ],
+  "author": {
+    "name": "Samir ROUABHI",
+    "email": "rouabhi@gmail.com"
+  },
+  "license": "GNU GPL v2",
+  "readmeFilename": "README.md",
+  "dependencies": {},
+  "readme": "# varsession #\r\n\r\n**varsession** offers a very simple way to manage *Session Variables* with node.js when using ```express.js```\r\n\r\n## How does it work? ##\r\nFirst, you have to activate session management using  _express-session_ middleware. \r\n```javascript\r\nvar express = require('express');\r\nvar app = express();\r\nvar session = require('express-session');\r\n\r\napp.use( session({secret:'mySecretKey', cookie: { maxAge: 600000 }, resave:false, saveUninitialized:true});\r\n```\r\n\r\nWith this lines, sessions are now managed. This means that you have a separate environment for each connection opened in the server. In this environment, you can now create session variables to store data throughout requests to the server.\r\n\r\n## How? ##\r\n**varsession** offers simple functions to define session variables:\r\n\r\n```javascript\r\nvar varSession = require('varsession');\r\n\r\nfunction setVariables(req,res){\r\n    var varsession = varSession(req);\r\n\r\n    // we define here session variables named \"name\" and \"surname\"\r\n    varsession(\"name\",\"ROUABHI\");\r\n    varsession(\"surname\",\"Samir\");\r\n    res.status(200).send(\"Variables defined.\").end();\r\n}\r\n\r\nfunction getVariables(req,res){\r\n    var varsession = varSession(req);\r\n\r\n    // we use now session variables\r\n    res.status(200).send(\"My name is :\"+ varsession(\"surname\") + \" \" + varsession(\"name\")).end();\r\n}\r\n\r\napp.get(\"/set\" , setVariables);\r\napp.get(\"/get\" , getVariables);\r\n```\r\n\r\nBeware : the session variables are stored in cookies so they are registred only when there is a HTTP response.\r\n\r\n## Different possibilities ##\r\n - ```varsession()``` returns all the variables of the session\r\n - ```varsession('variable')``` gets the value of a variable\r\n - ```varsession('variable',{value})``` sets a value in a variable\r\n - ```varsession('variable',null)``` deletes a variable\r\n - ```varsession('variable','field')``` gets a value in a field of a variable. is similar to ```varsession('variable')['field']```\r\n - ```varsession('variable','field',{value})``` sets a value in a field of a variable.\r\n\r\nOld functions of v0.1 ```.set```, ```.get```, ```.clear``` and ```.setAttr``` are now deprecated.\r\n\r\n## Other fonctions ##\r\n2 other fonctions currently available:\r\n```javascript\r\nvar varsession = varSession(req);\r\n\r\n// destroys the session and all session variables defined\r\nvarsession.abandon();\r\n\r\n// returns the ip address of the device that made the request.\r\nconsole.log( varsession.ip() );\r\n```",
+  "gitHead": "274a9d9bf6db7eda85ace7bad6f6680288a6c021",
+  "homepage": "https://bitbucket.org/cloudestin/varsession#readme",
+  "_id": "varsession@0.2.1",
+  "_shasum": "b5158cb0c250ba447de47f1041abb74f11a3f9d9",
+  "_from": "varsession@0.2.1"
+}
