@@ -91,3 +91,14 @@ Returns the coordinates of a square with distance *dist* east, west, north and s
     var InGuezzam = geo.point(19.566632, 5.754432)
     console.log("Coordinates of points 10km arround In Guezzam(DZ): ", InGuezzam.bounds( 10000 ));
 ```
+
+Obtained result:
+
+```javascript
+{
+  minlat: 19.476649629499615,
+  maxlat: 19.65661437050038,
+  minlng: 5.658988084369061,
+  maxlng: 5.849982527975235
+}
+```
