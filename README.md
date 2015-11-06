@@ -72,7 +72,7 @@ Gives the distance from a point to another one.
     console.log("Distance from P to Q : ",P.distance(Q, unit, precision));
 ```
 
-**Optional parameters :** *unit* is one of 'm' (meters), 'km' (kilometers), 'mile' (miles), 'NM' (nautic miles). *Precision* is the number of decimals.
+**Optional parameters :** *unit* is one of 'm' (meters, default), 'km' (kilometers), 'mile' (miles), 'NM' (nautic miles). *Precision* is the number of decimals.
 
 This function can also be called this way:
 

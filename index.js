@@ -1,20 +1,11 @@
 /*
 
-var geo = require('geolibri');
-var Oran = geo.point(35.702788 , -0.649256 );
-var Alger = geo.point( 36.7525000, 3.0419700);
-var Bejaia = geo.point( 36.75, 5.0666667);
+	geolibri.js
 
-console.info( "Alger-Oran : " , geo.dist( Oran, Alger, "km" , 3) );
-console.info( "Alger-Bejaia : " , (geo.dist( Alger, Bejaia, "km", 3 )) );
-console.info( "Bejaia-Bejaia : " , geo.dist( Alger.E(180000), Bejaia, "km", 3 ) );
-
-console.info( "Bejaia-Bejaia : " , (latlng.dist( {lat:36.7525000, lng:3.0419700},
- {lat:36.75, lng:5.0666667} )/1000).toFixed(2) );
 */
 
 
-	var R = 6367445;
+	var R = 6367445; // Earth average Radius
 	var units = { "m":1, "km":1000, "mile":1609.344, "NM":1852 };
 
 	function deg2rad(val){
@@ -40,7 +31,7 @@ console.info( "Bejaia-Bejaia : " , (latlng.dist( {lat:36.7525000, lng:3.0419700}
 		var dist = R * Math.acos( Math.sin(a)*Math.sin(b)+Math.cos(a)*Math.cos(b)*Math.cos(c-d) ) / factor;
 		if (typeof precision == "number") dist = parseFloat( dist.toFixed(precision));
 		return dist;
-	};
+	}
 	exports.distance = distance;
 
 	/** constructor of point(). Possible syntaxes are:
@@ -94,7 +85,7 @@ console.info( "Bejaia-Bejaia : " , (latlng.dist( {lat:36.7525000, lng:3.0419700}
  			var SW = exports.S(dist).W(dist);
  			var NE = exports.N(dist).E(dist);
  			return {minlat:SW.lat(), maxlat:NE.lat(), minlng:SW.lng(), maxlng:NE.lng()};
- 		}
+ 		};
  		exports.isType = "POINT";
 		return exports;
 	}
