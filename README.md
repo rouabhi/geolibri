@@ -51,15 +51,14 @@ West function can also be called by ```.O( dist )```.
 
 *dist* is expressed in meters.
 
-Another way to call these functions is:
+- ```move( dir, distance )```
+This function moves the current point into the indicated direction and the given distance (in meters). The change is applied to the current point and the returned value is the point itself, to chain functions.
 
 ```javascript
     var P = geo.point(latitude, longitude);
-    var A = P.move('N' , 1000 ); // A is a point situated 1 km north of P
-    var B = P.move('E' , 1000 ); // B is a point situated 1 km east of P
-    var C = P.move('S' , 2350 ); // C is a point situated 2.35 km south of P
-    var D = P.move('W' , 1500 ); 
-    var E = P.move('O' , 1500 ); // D & E are points situated 1.5 km west of P
+    P.move('N' , 1000 ); // P is moved 1 km to the north
+    P.move('E' , 1000 ); // P is then moved 1 km to the east
+    P.move('S' , 2350 ).move('W' , 1500 ); // P is now moved 2.35 km to the south and 1.5 km to the west
 ```
 
 - ```.distance( point )```
@@ -92,13 +91,12 @@ Returns the coordinates of a square with distance *dist* east, west, north and s
     console.log("Coordinates of points 10km arround In Guezzam(DZ): ", InGuezzam.bounds( 10000 ));
 ```
 
-Obtained result:
-
+Result:
 ```javascript
-{
-  minlat: 19.476649629499615,
-  maxlat: 19.65661437050038,
-  minlng: 5.658988084369061,
-  maxlng: 5.849982527975235
-}
+    {
+      minlat: 19.476649629499615,
+      maxlat: 19.65661437050038,
+      minlng: 5.658988084369061,
+      maxlng: 5.849982527975235
+    }
 ```

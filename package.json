@@ -1,7 +1,7 @@
 {
   "name": "geolibri",
-  "version": "0.0.2",
-  "description": "Simple library to manipulate geo objects",
+  "version": "0.0.3",
+  "description": "Simple library to handle geo objects",
   "repository": {
     "type": "git",
     "url": "git+https://rouabhi@bitbucket.org/rouabhi/geolibri.git"

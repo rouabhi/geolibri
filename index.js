@@ -46,8 +46,14 @@
 		factor = factor || 1;
 		
 		if (typeof lat === "number" ) {Lat = lat*factor; Lng = lng*factor;}
-		else if (lat && (lat.isType === "POINT")) return lat;
-		else if (lat) {Lat=(lat.lat || lat.latitude || 0)*factor; Lng=(lat.lng || lat.longitude || 0)*factor; }
+		else if (lat && (lat.isType === "POINT")) {
+		      Lat = lat.lat();
+		      Lng = lat.lng();
+	    }
+		else if (lat) {
+			Lat=(lat.lat || lat.latitude || 0)*factor;
+			Lng=(lat.lng || lat.lon || lat.longitude || 0)*factor;
+		}
 		else return null; // unknown: error
 
 		var exports = {};
@@ -63,6 +69,7 @@
 		function South(d){var delta=rad2deg(d/R); return point( Lat - delta, Lng );}
 		function East(d){var delta=rad2deg(d/R); return point( Lat , Lng + rad2deg(Math.acos(1-(1 - Math.cos(d/R))/Math.pow(Math.cos(deg2rad(Lat)),2))) ); }
 		function West(d){var delta=rad2deg(d/R); return point( Lat , Lng - rad2deg(Math.acos(1-(1 - Math.cos(d/R))/Math.pow(Math.cos(deg2rad(Lat)),2))) ); }
+		function set(point){ lat = point.lat(); Lng = point.lng(); return this; }
 
 		exports.N = North;
 		exports.S = South;
@@ -73,13 +80,13 @@
  		exports.move = function( dir, dist ){
  			var result = null;
  			switch(dir){
-	 			case 'N' : result = North( dist ); break;
-	 			case 'S' : result = South( dist ); break;
-	 			case 'E' : result = East( dist ); break;
+	 			case 'N' : set( North( dist ) ); break;
+	 			case 'S' : set( South( dist ) ); break;
+	 			case 'E' : set( East( dist ) ); break;
 	 			case 'W' :
-	 			case 'O' : result = West( dist ); break;
+	 			case 'O' : set( West( dist ) ); break;
 	 		}
-	 		return result;
+	 		return this;
  		};
  		exports.bounds = function( dist ){
  			var SW = exports.S(dist).W(dist);
