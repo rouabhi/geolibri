@@ -63,6 +63,7 @@
 		exports.latlng = function(){return {lat:Lat,lng:Lng};};
 		exports._lat = function(){return deg2rad(Lat);};
 		exports._lng = function(){return deg2rad(Lng);};
+		exports._latlng = function(){return {lat:deg2rad(Lat),lng:deg2rad(Lng)};};
 		exports.toString = function(){return JSON.stringify({lat:Lat, lng:Lng});};
 
 		function North(d){var delta=rad2deg(d/R); return point( Lat + delta, Lng );}

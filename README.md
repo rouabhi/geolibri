@@ -24,32 +24,34 @@ console.log(" 1 radian in degrees = ",geo.rad2deg(1));
 
  Possible syntax:
 
-    ```javascript
+```javascript
     var P1 = geo.point(latitude, longitude);
     var P2 = geo.point({"latitude":lat , "longitude":lng});
     var P3 = geo.point({"lat":lat , "lng":lng});
-    ```
+```
 
-We can also give latitude and longitude in *radians* using ```_point()``` instead of ```point()```.
+We can also give latitude and longitude in *radians* using *._point(...) instead of *.point(...)*.
 
 It is also possible to initialize a point from another one:
-    var P1 = geo.point(latitude, longitude);
-    var P2 = geo.point(P1);
+
+```javascript
+    var P1 = geo.point({latitude:, longitude:});
+    var P2 = geo.point(P1); // P2 is at the same position as P1
+```
 
 ## point() methods ##
 
 - ```.lat()```, ```.lng()```, ```.latlng()```
-To get *latitude*, *longitude* or a *{lat,lng}* object 
+To get *latitude*, *longitude* or a *{lat,lng}* object.
 
-- ```._lat()```, ```._lng()```
+- ```._lat()```, ```._lng()```, , ```._latlng()```
 To get *latitude* or *longitude* in radians. 
 
 - ```.N( dist )```, ```.E( dist )```, ```.S( dist )```, ```.W( dist )```
-Returns a new point that is from a distance *dist* to the North, East, South or West.
+Returns a new point that is from a distance *dist* to the North, East, South or West. The distance *dist* is expressed in meters.
 
-West function can also be called by ```.O( dist )```.
-
-*dist* is expressed in meters.
+- ```.O( dist )```
+Is an alias of ```.W( dist )``` (for the french word *Ouest*).
 
 - ```move( dir, distance )```
 This function moves the current point into the indicated direction and the given distance (in meters). The change is applied to the current point and the returned value is the point itself, to chain functions.
@@ -79,7 +81,7 @@ This function can also be called this way:
     var geo = require('geolibri');
     var Algiers = geo.point(36.7525000,3.0419700);
     var InGuezzam = geo.point(19.566632, 5.754432)
-    console.log("Distance from Algiers(DZ) to In Guezzam(DZ) is : ",geo.distance(Algiers, InGuezzam, "km", 3), " km");
+    console.log("Distance from Algiers(DZ) to In Guezzam(DZ) is : ",geo.distance(Algiers, InGuezzam, "km", 3), " km"); // 1928.06  km
 ```
 
 - ```bounds( dist )```

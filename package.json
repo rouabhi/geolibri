@@ -1,6 +1,6 @@
 {
   "name": "geolibri",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Simple library to handle geo objects",
   "repository": {
     "type": "git",
