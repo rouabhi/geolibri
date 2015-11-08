@@ -1,10 +1,10 @@
 {
   "name": "geolibri",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple library to handle geo objects",
   "repository": {
     "type": "git",
-    "url": "git+https://rouabhi@bitbucket.org/rouabhi/geolibri.git"
+    "url": "https://github.com/rouabhi/geolibri.git"
   },
   "main": "index.js",
   "keywords": [
