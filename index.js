@@ -70,7 +70,7 @@
 		function South(d){var delta=rad2deg(d/R); return point( Lat - delta, Lng );}
 		function East(d){var delta=rad2deg(d/R); return point( Lat , Lng + rad2deg(Math.acos(1-(1 - Math.cos(d/R))/Math.pow(Math.cos(deg2rad(Lat)),2))) ); }
 		function West(d){var delta=rad2deg(d/R); return point( Lat , Lng - rad2deg(Math.acos(1-(1 - Math.cos(d/R))/Math.pow(Math.cos(deg2rad(Lat)),2))) ); }
-		function set(point){ lat = point.lat(); Lng = point.lng(); return this; }
+		function set(point){ Lat = point.lat(); Lng = point.lng(); return this; }
 
 		exports.N = North;
 		exports.S = South;
